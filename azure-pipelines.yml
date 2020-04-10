@@ -21,7 +21,7 @@ steps:
 
   - task: CopyFiles@2
 #      displayName: 'Copy Files to'
-      inputs:
-        SourceFolder: 'C:\Users\Satya\Desktop\Test\'
-        Contents: '**/*.apk'
-        TargetFolder: '$(build.artifactStagingDirectory)'
+    inputs:
+      SourceFolder: 'C:\Users\Satya\Desktop\Test\'
+      Contents: '**/*.apk'
+      TargetFolder: '$(build.artifactStagingDirectory)'
