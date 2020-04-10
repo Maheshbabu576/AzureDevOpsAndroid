@@ -20,7 +20,7 @@ steps:
       tasks: 'assembleDebug'
 
   - task: CopyFiles@2
-      displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
+      displayName: 'Copy Files to'
       inputs:
         SourceFolder: 'C:\Users\Satya\Desktop\Test\'
         Contents: '**/*.apk'
