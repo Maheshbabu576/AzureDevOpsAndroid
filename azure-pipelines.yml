@@ -26,6 +26,13 @@ pool:
 ##      Contents: '**/*.apk'
 ##      TargetFolder: '$(build.artifactStagingDirectory)'
 steps:
+  #  - task: Gradle@2
+  #    inputs:
+  #      workingDirectory: ''
+  #      gradleWrapperFile: 'gradlew'
+  #      publishJUnitResults: false
+  #      tasks: 'assembleDebug'
+
   - task: Gradle@2
     inputs:
       workingDirectory: ''
@@ -33,35 +40,30 @@ steps:
       publishJUnitResults: false
       tasks: 'assembleRelease'
 
-#  - task: Gradle@2
-#    inputs:
-#      workingDirectory: ''
-#      gradleWrapperFile: 'gradlew'
-#      publishJUnitResults: false
-#      tasks: 'assembleRelease'
-
   - task: AndroidSigning@3
     inputs:
       apkFiles: '**/*.apk'
       apksign: true
-      apksignerKeystoreFile: 'production.keystore'
-      apksignerKeystorePassword: 'swayam@123'
-      apksignerKeystoreAlias: 'productionKey'
-      apksignerKeyPassword: 'swayam@123'
-      apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/AzureDevops.release.apk
+      apksignerKeystoreFile: 'MyKeyStore.keystore'
+      apksignerKeystorePassword: 'Mobile@123'
+      apksignerKeystoreAlias: 'Mobile'
+      apksignerKeyPassword: 'Mobile@123'
+      apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/my-crazy-app.release.apk
       zipalign: true
 
   - task: CopyFiles@2
     inputs:
-      SourceFolder: $(Build.SourcesDirectory)
-      contents: '**/*.release.apk'
+      contents: '**/*.apk'
       targetFolder: '$(build.artifactStagingDirectory)'
-      overWrite: true
+
+  #  - task: PublishBuildArtifacts@1
+  #    inputs:
+  #      pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
+  #      artifactName: 'apk-files'
+  #      artifactType: 'container'
 
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/app/build/outputs/apk/release/'
       artifactName: 'apks'
       publishLocation: 'container'
-
-
