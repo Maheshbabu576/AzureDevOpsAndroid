@@ -45,20 +45,17 @@ steps:
       contents: '**/*.apk'
       targetFolder: '$(build.artifactStagingDirectory)'
 
-      variables:
-        - group: android-build-variables
 
-        steps:
-          - task: AndroidSigning@3
-            inputs:
-              apkFiles: '**/*.apk'
-              apksign: true
-              apksignerKeystoreFile: 'production.keystore'
-              apksignerKeystorePassword: $(keystore.password)
-              apksignerKeystoreAlias: $(key.alias)
-              apksignerKeyPassword: $(key.password)
-              apksignerArguments: --out $(outputDirectory)/app.release.apk
-              zipalign: true
+   - task: AndroidSigning@3
+        inputs:
+          apkFiles: '**/*.apk'
+          apksign: true
+          apksignerKeystoreFile: 'production.keystore'
+          apksignerKeystorePassword: 'swayam@123'
+          apksignerKeystoreAlias: 'productionKey'
+          apksignerKeyPassword: 'swayam@123'
+          apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/my-crazy-app.release.apk
+          zipalign: true
 
   - task: PublishBuildArtifacts@1
     inputs:
