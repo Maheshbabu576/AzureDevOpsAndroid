@@ -44,10 +44,10 @@ steps:
     inputs:
       apkFiles: '**/*.apk'
       apksign: true
-      apksignerKeystoreFile: 'MyKeyStore.keystore'
-      apksignerKeystorePassword: 'Mobile@123'
-      apksignerKeystoreAlias: 'Mobile'
-      apksignerKeyPassword: 'Mobile@123'
+      apksignerKeystoreFile: 'production.keystore'
+      apksignerKeystorePassword: 'swayam@123'
+      apksignerKeystoreAlias: 'productionKey'
+      apksignerKeyPassword: 'swayam@123'
       apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/my-crazy-app.release.apk
       zipalign: true
 
