@@ -45,6 +45,21 @@ steps:
       contents: '**/*.apk'
       targetFolder: '$(build.artifactStagingDirectory)'
 
+      variables:
+        - group: android-build-variables
+
+        steps:
+          - task: AndroidSigning@3
+            inputs:
+              apkFiles: '**/*.apk'
+              apksign: true
+              apksignerKeystoreFile: 'production.keystore'
+              apksignerKeystorePassword: $(keystore.password)
+              apksignerKeystoreAlias: $(key.alias)
+              apksignerKeyPassword: $(key.password)
+              apksignerArguments: --out $(outputDirectory)/app.release.apk
+              zipalign: true
+
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
@@ -52,17 +67,4 @@ steps:
       artifactType: 'container'
 
 
-      variables:
-        - group: android-build-variables
 
-      steps:
-        - task: AndroidSigning@3
-          inputs:
-            apkFiles: '**/*.apk'
-            apksign: true
-            apksignerKeystoreFile: 'production.keystore'
-            apksignerKeystorePassword: $(keystore.password)
-            apksignerKeystoreAlias: $(key.alias)
-            apksignerKeyPassword: $(key.password)
-            apksignerArguments: --out $(outputDirectory)/app.release.apk
-            zipalign: true
