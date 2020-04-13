@@ -50,3 +50,22 @@ steps:
       pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
       artifactName: 'apk-files'
       artifactType: 'container'
+
+
+      variables:
+        - group: android-build-variables
+
+      steps:
+
+        #...
+
+        - task: AndroidSigning@3
+          inputs:
+            apkFiles: '**/*.apk'
+            apksign: true
+            apksignerKeystoreFile: 'production.keystore'
+            apksignerKeystorePassword: $(keystore.password)
+            apksignerKeystoreAlias: $(key.alias)
+            apksignerKeyPassword: $(key.password)
+            apksignerArguments: --out $(outputDirectory)/app.release.apk
+            zipalign: true
