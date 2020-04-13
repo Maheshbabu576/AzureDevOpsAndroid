@@ -9,19 +9,44 @@ trigger:
 pool:
   vmImage: 'macos-latest'
 
+#steps:
+#  - task: Gradle@2
+#    inputs:
+#      workingDirectory: ''
+#      gradleWrapperFile: 'gradlew'
+#      gradleOptions: '-Xmx3072m'
+#      publishJUnitResults: false
+#      testResultsFiles: '**/TEST-*.xml'
+#      tasks: 'assembleDebug'
+#
+##  - task: CopyFiles@2
+###      displayName: 'Copy Files to'
+##    inputs:
+##      SourceFolder: 'C:\Users\Satya\Desktop\Test\'
+##      Contents: '**/*.apk'
+##      TargetFolder: '$(build.artifactStagingDirectory)'
 steps:
   - task: Gradle@2
     inputs:
       workingDirectory: ''
       gradleWrapperFile: 'gradlew'
-      gradleOptions: '-Xmx3072m'
       publishJUnitResults: false
-      testResultsFiles: '**/TEST-*.xml'
       tasks: 'assembleDebug'
 
-#  - task: CopyFiles@2
-##      displayName: 'Copy Files to'
-#    inputs:
-#      SourceFolder: 'C:\Users\Satya\Desktop\Test\'
-#      Contents: '**/*.apk'
-#      TargetFolder: '$(build.artifactStagingDirectory)'
+  - task: Gradle@2
+    inputs:
+      workingDirectory: ''
+      gradleWrapperFile: 'gradlew'
+      publishJUnitResults: false
+      tasks: 'assembleRelease'
+
+  - task: CopyFiles@2
+    inputs:
+      contents: '**/*.apk'
+      targetFolder: '$(build.artifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(build.artifactStagingDirectory)/app/build/outputs/'
+      artifactName: 'apk-files'
+      artifactType: 'container'
