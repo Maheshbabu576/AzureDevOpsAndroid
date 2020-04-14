@@ -8,7 +8,7 @@ class HomeViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
 
-        value = "This is home screen test changes 6678"
+        value = "This is home screen for Devops"
 
     }
     val text: LiveData<String> = _text
