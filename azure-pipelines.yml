@@ -48,7 +48,7 @@ steps:
       apksignerKeystorePassword: 'swayam@123'
       apksignerKeystoreAlias: 'productionKey'
       apksignerKeyPassword: 'swayam@123'
-      apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/my-crazy-app.release.apk
+      apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/AzureDevops_release.apk
       zipalign: true
 
   - task: CopyFiles@2
